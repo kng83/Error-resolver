@@ -1,4 +1,5 @@
 Error handling self loaded instance of error.
+It can be used on server side with express.
 
 
 
