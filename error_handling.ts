@@ -1,4 +1,4 @@
-import {IErrorConfig,} from './src/Error.Interface'
+import {IErrorConfig} from './src/Error.Interface'
 import {ErrorModel} from './lib/Error.model';
 
 //export let EM: ErrorModel;
