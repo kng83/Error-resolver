@@ -8,7 +8,7 @@ Error handling self loaded instance of error.
 ## Install
 
 ```
-$ npm install error-instance-manager
+$ npm install error-resolver
 ```
 To use create file and for example error.init.ts use on te top o app.ts
 
