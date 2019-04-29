@@ -20,7 +20,7 @@ import './error.init'
 
 Example error.init.ts;
 ```ts
-import {startErrorHandling} from './ErrorHandling/error_handling'
+import {startErrorHandling} from 'error-resolver'
 const ST  = startErrorHandling({errorLevel:'stack'});
 ```
 
