@@ -34,9 +34,9 @@ export class ErrorModel {
     }
 
     //**Make global variable to hold instance */
-    private makeGlobalVariableToHoldInstance(){
-        global[createUniqueString('xyz')] = this;
-    }
+    // private makeGlobalVariableToHoldInstance(){
+    //     global[createUniqueString('xyz')] = this;
+    // }
 
     //**Get error level config */
     public static get errorConfig() {

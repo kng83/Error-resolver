@@ -2,7 +2,8 @@
   "name": "error-resolver",
   "version": "1.0.1",
   "description": "Package to maintain errors",
-  "main": "error_handling.ts",
+  "main": "dist/error_handling.js",
+  "types": "dist/error_resolver.d.ts",
   "directories": {
     "lib": "lib"
   },
@@ -21,5 +22,5 @@
   "bugs": {
     "url": "https://github.com/kng83/Error-resolver/issues"
   },
-  "homepage": "https://github.com/kng83/Error-resolver#readme"
+  "homepage": "https://github.com/kng83/Error-resolver#readme",
 }
