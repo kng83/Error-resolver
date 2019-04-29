@@ -1,0 +1,25 @@
+{
+  "name": "error-resolver",
+  "version": "1.0.0",
+  "description": "Package to maintain errors",
+  "main": "error_handling.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kng83/Error-resolver.git"
+  },
+  "keywords": [
+    "error"
+  ],
+  "author": "kng83",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kng83/Error-resolver/issues"
+  },
+  "homepage": "https://github.com/kng83/Error-resolver#readme"
+}
