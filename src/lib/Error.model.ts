@@ -1,4 +1,4 @@
-import {IErrorConfig} from '../src/Error.Interface';
+import {IErrorConfig} from './Error.Interface';
 import {overrideLeft,createUniqueString} from './utilities';
 
 
@@ -31,6 +31,7 @@ export class ErrorModel {
         }
         this._runtimeConfig = overrideLeft(this._defaultConfig, config);
         ErrorModel._instance =  this;
+        return this;
     }
 
     //**Make global variable to hold instance */

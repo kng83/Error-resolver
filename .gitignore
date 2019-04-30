@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 
+
 # dependencies
 /node_modules
 
@@ -21,19 +22,11 @@
 /.vscode
 
 # misc
-/.sass-cache
-/connect.lock
 /coverage
-/libpeerconnection.log
 npm-debug.log
 yarn-error.log
 testem.log
 /typings
 
+
 # System Files
-.DS_Store
-Thumbs.db
-/server/base
-/server/controllers
-/server/models
-/server/plc

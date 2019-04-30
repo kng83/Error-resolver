@@ -1,0 +1,12 @@
+import {IErrorConfig} from './lib/Error.Interface'
+import {ErrorModel} from './lib/Error.model';
+
+//export let EM: ErrorModel;
+
+//**Make Global error handling instance for error state management */
+export function startErrorResolving(config: IErrorConfig) {
+  return ErrorModel.initialize(config);
+}
+
+export {IErrorPassingStruct,IErrorData,IErrorConfig} from './lib/Error.Interface';
+export {checkAgainstUndefined,tryFnRun,asyncTryFnRun} from './lib/error.functions';

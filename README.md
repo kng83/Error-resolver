@@ -11,7 +11,8 @@ It can be used on server side with express.
 ```
 $ npm install error-resolver
 ```
-To use create file and for example error.init.ts use on te top o app.ts
+Module is designed for use on backend with node for wrapping errors.
+To use create file error.init.ts. Use this file on top of app.ts.
 
 ## Usage
 Example app.ts
@@ -21,8 +22,10 @@ import './error.init'
 
 Example error.init.ts;
 ```ts
-import {startErrorHandling} from 'error-resolver'
-const ST  = startErrorHandling({errorLevel:'stack'});
+import {startErrorResolving} from 'error-resolver'
+const ST  = startErrorResolving({errorLevel:'stack'});
 ```
 
+Usage
+```ts
 
