@@ -51,4 +51,8 @@ export class ErrorModel {
     public static get isErrorDataModel() {
         return ErrorModel._instance._defaultConfig.isErrorData;
     }
+
+    public get errorModelIsCreated(){
+        return !!ErrorModel._instance;
+    }
 }
