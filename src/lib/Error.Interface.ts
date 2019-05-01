@@ -5,9 +5,9 @@ export interface IErrorPassingStruct {
 }
 //interface ErrorData extends Partial<Error> 
 export interface IErrorData {
-    name?: string;
-    message?: string;
-    stack?: string | string[];
+    name: string;
+    message: string;
+    stack: string;
 }
 
 /** Error Level explanation:
@@ -19,8 +19,7 @@ export interface IErrorData {
 export type TErrorLevel = 'none' | 'low' | 'caller' | 'stack';
 
 export interface IErrorConfig {
-    globalVariableName?:string,
-    errorLevel?: TErrorLevel,
-    noErrorData?: IErrorData,
-    isErrorData?: IErrorData
+    errorLevel: TErrorLevel,
+    noErrorData: IErrorData,
+    isErrorData: IErrorData
 }

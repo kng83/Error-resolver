@@ -1,10 +1,10 @@
-import { IErrorData, IErrorPassingStruct } from './Error.Interface';
+import { IErrorData, IErrorPassingStruct} from './Error.Interface';
 import { mergeRight } from './utilities';
 import {ErrorModel} from './Error.model';
 
 
 //**Check undefined value */
-export function checkAgainstUndefined(value) {
+export function checkAgainstUndefined(value:any) {
     if (value) return formNoErrorObj();
     else {
         const e = throwUserError('value is undefined')
@@ -13,23 +13,25 @@ export function checkAgainstUndefined(value) {
 }
 
 //**Run function in safe environment and return error object if occurs*/
-export function tryFnRun<D extends any[], R>(fn: { (...args: D): R }, ...args: D): [R, IErrorPassingStruct] {
+export function tryFnRun<D extends any[], R extends any>(fn: { (...args: D): R }, ...args: D): [R, IErrorPassingStruct] {
     let ans: R, passErrObj = formNoErrorObj();
     try {
         ans = fn(...args);
     } catch (e) {
         passErrObj = formIsErrorObj(e, errorResolver);
-    }
+        ans = undefined as any as R;  //hack because this value is not important if try fail
+    }   
     return [ans, passErrObj];
 }
 
 //**Function to write async task in safety environment fn should by async */
 export async function asyncTryFnRun<D extends any[], R>(fn: { (...args: D): R }, ...args: D): Promise<[R, IErrorPassingStruct]> {
-    let ans: R, passErrObj = formNoErrorObj();
+    let ans, passErrObj = formNoErrorObj();
     try {
-        ans = fn(...args);
+        ans = await fn(...args);
     } catch (e) {
         passErrObj = formIsErrorObj(e, errorResolver);
+        ans = undefined as any as R;
     }
     return [await ans, await passErrObj];
 }
@@ -52,7 +54,7 @@ function formNoErrorObj(errorData = ErrorModel.noErrorDataModel, callback?: (arg
 
 //**Throw User error with possibility of stack extracting */
 function throwUserError(message: string) {
-    let err: IErrorData = ErrorModel.isErrorDataModel;
+    let err = ErrorModel.isErrorDataModel;
     
     if (ErrorModel.errorConfig.errorLevel === 'stack') try {
         throw Error(message)
@@ -65,17 +67,17 @@ function throwUserError(message: string) {
 }
 
 //**Resolve error and put to ErrorData object */
-function errorResolver({ name, message, stack }: Error): IErrorData {
+function errorResolver({ name, message, stack }: IErrorData): IErrorData {
     return { name, message, stack: convertErrStack(stack) }
 }
 
 //**Convert error stack for better view */
 function convertErrStack(errStack: string) {
-    const sArr = []
+    const sArr:string[] = [];
     errStack.match(/(?<=\n\s+at\s+).*?(?=\s+at)/g).forEach(el => {
         sArr.push(el);
     })
-    return sArr;
+    return sArr.toString();
 }
 
 //TODO this is here but it shouldn't be
