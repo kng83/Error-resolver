@@ -72,12 +72,19 @@ function errorResolver({ name, message, stack }: IErrorData): IErrorData {
 }
 
 //**Convert error stack for better view */
-function convertErrStack(errStack: string) {
-    const sArr:string[] = [];
-    errStack.match(/(?<=\n\s+at\s+).*?(?=\s+at)/g).forEach(el => {
-        sArr.push(el);
-    })
-    return sArr.toString();
+// function convertErrStack(errStack:string) {
+//     const sArr:string[] = [];
+//     errStack.match(/(?<=\n\s+at\s+).*?(?=\s+at)/g).forEach(el => {
+//          sArr.push(el);
+//     })
+//     return errStack//sArr.toString();
+// }
+
+function convertErrStack([errStack]:string) {
+    if(!errStack){
+        return errStack.match(/(?<=\n\s+at\s+).*?(?=\s+at)/g).toString();
+    }
+    else return errStack;
 }
 
 //TODO this is here but it shouldn't be
