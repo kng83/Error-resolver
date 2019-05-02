@@ -1,7 +1,6 @@
 import {IErrorConfig} from './lib/Error.Interface'
 import {ErrorModel} from './lib/Error.model';
 
-//export let EM: ErrorModel;
 
 //**Make Global error handling instance for error state management */
 export function startErrorHandling(config?:Partial<IErrorConfig>) {

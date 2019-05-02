@@ -71,20 +71,10 @@ function errorResolver({ name, message, stack }: IErrorData): IErrorData {
     return { name, message, stack: convertErrStack(stack) }
 }
 
-//**Convert error stack for better view */
-// function convertErrStack(errStack:string) {
-//     const sArr:string[] = [];
-//     errStack.match(/(?<=\n\s+at\s+).*?(?=\s+at)/g).forEach(el => {
-//          sArr.push(el);
-//     })
-//     return errStack//sArr.toString();
-// }
-
+//**Convert stack to array of string if not possible return string arg */
 function convertErrStack(errStack:string) {
-    if(errStack){
-        return errStack.match(/(?<=\n\s+at\s+).*?(?=\s+at)/g).toString() as string;
-    }
-    else return errStack;
+    const stack = (/(?<=\n\s+at\s+).*?(?=\s+at)/g).exec(errStack)
+    return  !!stack ? stack.toString() : errStack
 }
 
 //TODO this is here but it shouldn't be
