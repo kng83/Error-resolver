@@ -80,9 +80,9 @@ function errorResolver({ name, message, stack }: IErrorData): IErrorData {
 //     return errStack//sArr.toString();
 // }
 
-function convertErrStack([errStack]:string) {
-    if(!errStack){
-        return errStack.match(/(?<=\n\s+at\s+).*?(?=\s+at)/g).toString();
+function convertErrStack(errStack:string) {
+    if(errStack){
+        return errStack.match(/(?<=\n\s+at\s+).*?(?=\s+at)/g).toString() as string;
     }
     else return errStack;
 }
