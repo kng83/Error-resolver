@@ -81,7 +81,7 @@ function convertErrStack(errStack:string) {
     .map((el,index) => {
         //remove trailing spaces and "at" at begin of element
         const splitBeginOfLine =el.split(/\s+at\s+/); // [___at,rest of message]
-        return splitBeginOfLine.length === 2 ? splitBeginOfLine[1] : `no.at.${index}` // give no at key if no "at" 
+        return splitBeginOfLine.length === 2 ? splitBeginOfLine[1] : `no.at.${index} ${splitBeginOfLine[0]}` // give no at key if no "at" 
     })
     console.log(stack,'=======================')
     return stack.toString();
