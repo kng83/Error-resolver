@@ -74,8 +74,7 @@ function errorResolver({ name, message, stack }: IErrorData): IErrorData {
 //**Convert stack to array of string if not possible return string arg */
 function convertErrStack(errStack: string) {
 
-    // const stack = (/(?<=\n\s+at\s+).*?(?=\s+at)/g).exec(errStack);
-    const stack = errStack
+    return errStack
         .split(/\n/) //remove end of line end create array
         .slice(1) // remove first element which is message name
         .map((el, index) => {
@@ -84,13 +83,16 @@ function convertErrStack(errStack: string) {
                 ? splitBeginOfLine[1]
                 : `no.at.${index} ${splitBeginOfLine[0]}` // give no.at.$index if no "at" 
         })
-        .map(el => {
-            const value= el.split(/\s(?=\()/);
-            const key = value[0].toString();
-            return {[key]:value[1]};
+        .map(el => { 
+            return el.split(/\s(?=\()/); //make key value tupple           
         })
-    console.dir(stack, '=======================')
-    return stack.toString();
+        .map(([key,value])=>{
+            return [key, value.replace(/\(|\)/g,'')] //remove parenthes from value
+        })
+        .map(([key,value])=>{
+            return {[key]:value} //return as object
+        })
+        .toString();
 }
 
 //TODO this is here but it shouldn't be

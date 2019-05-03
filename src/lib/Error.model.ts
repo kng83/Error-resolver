@@ -2,8 +2,6 @@ import { IErrorConfig } from './Error.Interface';
 import { overrideLeft, createUniqueString } from './utilities';
 
 
-
-//TODO extract logger from Error handling
 export class ErrorModel {
     //**Create singleton instance */
     static initialize(config: Partial<IErrorConfig>) {
