@@ -6,8 +6,8 @@ import { overrideLeft, createUniqueString } from './utilities';
 //TODO extract logger from Error handling
 export class ErrorModel {
     //**Create singleton instance */
-    static initialize(config?: Partial<IErrorConfig>) {
-        return ErrorModel._instance || new ErrorModel(config = ErrorModel._defaultConfig);
+    static initialize(config: Partial<IErrorConfig>) {
+        return ErrorModel._instance || new ErrorModel(config);
     }
     private static _instance: ErrorModel;
 
@@ -28,7 +28,7 @@ export class ErrorModel {
     private _runtimeConfig: IErrorConfig;
 
     //**Override default values */
-    private constructor(config: IErrorConfig) {
+    private constructor(config: Partial<IErrorConfig>) {
         if (ErrorModel._instance) throw new Error("Error - use ErrorModel.getInstance()");
 
         this._runtimeConfig = overrideLeft(ErrorModel._defaultConfig, config);

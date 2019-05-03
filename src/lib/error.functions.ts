@@ -73,8 +73,18 @@ function errorResolver({ name, message, stack }: IErrorData): IErrorData {
 
 //**Convert stack to array of string if not possible return string arg */
 function convertErrStack(errStack:string) {
-    const stack = (/(?<=\n\s+at\s+).*?(?=\s+at)/g).exec(errStack)
-    return  !!stack ? stack.toString() : errStack
+    
+   // const stack = (/(?<=\n\s+at\s+).*?(?=\s+at)/g).exec(errStack);
+    const stack = errStack
+    .split(/\n/) //remove end of line end create array
+    .slice(1) // remove first element which is message name
+    .map((el,index) => {
+        //remove trailing spaces and "at" at begin of element
+        const splitBeginOfLine =el.split(/\s+at\s+/); // [___at,rest of message]
+        return splitBeginOfLine.length === 2 ? splitBeginOfLine[1] : `no.at.${index}` // give no at key if no "at" 
+    })
+    console.log(stack,'=======================')
+    return stack.toString();
 }
 
 //TODO this is here but it shouldn't be
