@@ -1,10 +1,10 @@
-import { IErrorData, IErrorPassingStruct} from './Error.Interface';
+import { IErrorData, IErrorPassingStruct } from './Error.Interface';
 import { mergeRight } from './utilities';
-import {ErrorModel} from './Error.model';
+import { ErrorModel } from './Error.model';
 
 
 //**Check undefined value */
-export function checkAgainstUndefined(value:any) {
+export function checkAgainstUndefined(value: any) {
     if (value) return formNoErrorObj();
     else {
         const e = throwUserError('value is undefined')
@@ -20,7 +20,7 @@ export function tryFnRun<D extends any[], R extends any>(fn: { (...args: D): R }
     } catch (e) {
         passErrObj = formIsErrorObj(e, errorResolver);
         ans = undefined as any as R;  //hack because this value is not important if try fail
-    }   
+    }
     return [ans, passErrObj];
 }
 
@@ -55,7 +55,7 @@ function formNoErrorObj(errorData = ErrorModel.noErrorDataModel, callback?: (arg
 //**Throw User error with possibility of stack extracting */
 function throwUserError(message: string) {
     let err = ErrorModel.isErrorDataModel;
-    
+
     if (ErrorModel.errorConfig.errorLevel === 'stack') try {
         throw Error(message)
     } catch (e) {
@@ -72,18 +72,24 @@ function errorResolver({ name, message, stack }: IErrorData): IErrorData {
 }
 
 //**Convert stack to array of string if not possible return string arg */
-function convertErrStack(errStack:string) {
-    
-   // const stack = (/(?<=\n\s+at\s+).*?(?=\s+at)/g).exec(errStack);
+function convertErrStack(errStack: string) {
+
+    // const stack = (/(?<=\n\s+at\s+).*?(?=\s+at)/g).exec(errStack);
     const stack = errStack
-    .split(/\n/) //remove end of line end create array
-    .slice(1) // remove first element which is message name
-    .map((el,index) => {
-        //remove trailing spaces and "at" at begin of element
-        const splitBeginOfLine =el.split(/\s+at\s+/); // [___at,rest of message]
-        return splitBeginOfLine.length === 2 ? splitBeginOfLine[1] : `no.at.${index} ${splitBeginOfLine[0]}` // give no at key if no "at" 
-    })
-    console.log(stack,'=======================')
+        .split(/\n/) //remove end of line end create array
+        .slice(1) // remove first element which is message name
+        .map((el, index) => {
+            const splitBeginOfLine = el.split(/\s+at\s+/); // [___at,rest of message]; remove trailing spaces and "at" at begin of element
+            return splitBeginOfLine.length === 2
+                ? splitBeginOfLine[1]
+                : `no.at.${index} ${splitBeginOfLine[0]}` // give no.at.$index if no "at" 
+        })
+        .map(el => {
+            const value= el.split(/\s(?=\()/);
+            const key = value[0].toString();
+            return {[key]:value[1]};
+        })
+    console.dir(stack, '=======================')
     return stack.toString();
 }
 
