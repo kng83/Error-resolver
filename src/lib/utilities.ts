@@ -39,3 +39,9 @@ export function mergeLeft<T extends D[], D extends any>(...sources: T) {
 export function createUniqueString(secret: string): string {
   return Date.now().toString() + secret
 }
+
+//**Log passed array for using in filter and mapping */
+export function logArr<V>(value:V,index:number,arr:V[]):V{
+  if(index==0) console.log(arr);
+  return value;
+}

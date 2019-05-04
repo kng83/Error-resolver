@@ -1,5 +1,5 @@
 import { IErrorData, IErrorPassingStruct } from './Error.Interface';
-import { mergeRight } from './utilities';
+import { mergeRight, logArr } from './utilities';
 import { ErrorModel } from './Error.model';
 
 
@@ -25,15 +25,15 @@ export function tryFnRun<D extends any[], R extends any>(fn: { (...args: D): R }
 }
 
 //**Function to write async task in safety environment fn should by async */
-export async function asyncTryFnRun<D extends any[], R>(fn: { (...args: D): R }, ...args: D): Promise<[R, IErrorPassingStruct]> {
+export async function asyncTryFnRun<D extends any[], R>(fn: { (...args: D): Promise<R> }, ...args: D):Promise<[R,IErrorPassingStruct]> {
     let ans, passErrObj = formNoErrorObj();
     try {
-        ans = await fn(...args);
+        ans =  await fn(...args);
     } catch (e) {
         passErrObj = formIsErrorObj(e, errorResolver);
         ans = undefined as any as R;
     }
-    return [await ans, await passErrObj];
+    return [ans, passErrObj];
 }
 
 //** This is wrapper for Error when occurs */
@@ -74,7 +74,7 @@ function errorResolver({ name, message, stack }: IErrorData): IErrorData {
 //**Convert stack to array of string if not possible return string arg */
 function convertErrStack(errStack: string) {
 
-    return errStack
+    const errorStack = errStack
         .split(/\n/) //remove end of line end create array
         .slice(1) // remove first element which is message name
         .map((el, index) => {
@@ -84,15 +84,22 @@ function convertErrStack(errStack: string) {
                 : `no.at.${index} ${splitBeginOfLine[0]}` // give no.at.$index if no "at" 
         })
         .map(el => { 
-            return el.split(/\s(?=\()/); //make key value tupple           
+            const splitted = el.split(/\s(?=\()/); //make key value tuple
+            return splitted.length == 2 ?  splitted : [`no.description`, splitted[0]]          
+            
         })
         .map(([key,value])=>{
-            return [key, value.replace(/\(|\)/g,'')] //remove parenthes from value
+            return [key, value.replace(/\(|\)/g,'')] //remove bracket from value
         })
-        .map(([key,value])=>{
-            return {[key]:value} //return as object
+        .map(([key,value],index)=>{
+              const nrKey = index < 10 ? `[0${index}] ${key}` : `[${index}]${key}`; //max 99 for array behavior
+              return {[nrKey]:value}
         })
-        .toString();
+        .reduce((acc,current)=>{
+            return {...acc,...current} //convert array to object
+        },{})
+       
+        return JSON.stringify(errorStack);
 }
 
 //TODO this is here but it shouldn't be

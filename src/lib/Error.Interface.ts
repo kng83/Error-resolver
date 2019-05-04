@@ -1,7 +1,7 @@
 
 export interface IErrorPassingStruct {
     hasError: boolean | undefined;
-    errorData?: IErrorData
+    errorData: IErrorData
 }
 //interface ErrorData extends Partial<Error> 
 export interface IErrorData {
