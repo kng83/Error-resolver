@@ -1,9 +1,9 @@
 {
   "name": "error-resolver",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Package to maintain errors",
-  "main": "dist/error_resolver.js",
-  "types": "dist/error_resolver.d.ts",
+  "main": "dist/error.resolver.js",
+  "types": "dist/error.resolver.d.ts",
   "directories": {
     "lib": "lib"
   },

@@ -3,7 +3,7 @@ import {ErrorModel} from './lib/Error.model';
 
 
 //**Make Global error handling instance for error state management */
-export function startErrorHandling(config:Partial<IErrorConfig>) {
+export function startErrorResolving(config:Partial<IErrorConfig>) {
   return ErrorModel.initialize(config);
 }
 

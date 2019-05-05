@@ -1,7 +1,7 @@
-import {checkAgainstUndefined,startErrorHandling} from '../src/error.resolver';
+import {checkAgainstUndefined,startErrorResolving} from '../src/error.resolver';
 
 beforeEach(() => {
-    const ST  = startErrorHandling({errorLevel:'stack'}); 
+    const ST  = startErrorResolving({errorLevel:'stack'}); 
     expect(ST.errorModelForResolverIsCreated).toBe(true);
   });
 

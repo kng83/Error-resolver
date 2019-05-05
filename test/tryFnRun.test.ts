@@ -1,8 +1,8 @@
-import { tryFnRun, startErrorHandling } from '../src/error.resolver';
+import { tryFnRun, startErrorResolving } from '../src/error.resolver';
 
 //**Create instance of Error */
 beforeEach(() => {
-    const ST = startErrorHandling({ errorLevel: 'stack' });
+    const ST = startErrorResolving({ errorLevel: 'stack' });
     expect(ST.errorModelForResolverIsCreated).toBe(true);
 });
 

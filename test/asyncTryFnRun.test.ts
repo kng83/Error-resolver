@@ -1,9 +1,9 @@
-import { asyncTryFnRun, startErrorHandling } from '../src/error.resolver';
+import { asyncTryFnRun, startErrorResolving } from '../src/error.resolver';
 import { testingDelayJSONParser } from './utilities.test';
 
 //**Create instance of Error */
 beforeEach(() => {
-    const ST = startErrorHandling({ errorLevel: 'stack' });
+    const ST = startErrorResolving({ errorLevel: 'stack' });
     expect(ST.errorModelForResolverIsCreated).toBe(true);
 });
 
