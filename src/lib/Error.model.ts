@@ -1,5 +1,5 @@
 import { IErrorConfig } from './Error.Interface';
-import { overrideLeft, createUniqueString } from './utilities';
+import { overrideLeft} from './utilities';
 
 
 export class ErrorModel {
@@ -33,11 +33,6 @@ export class ErrorModel {
         ErrorModel._instance = this;
         return ErrorModel._instance;
     }
-
-    //**Make global variable to hold instance */
-    // private makeGlobalVariableToHoldInstance(){
-    //     global[createUniqueString('xyz')] = this;
-    // }
 
     //**Get error level config */
     public static get errorConfig() {
